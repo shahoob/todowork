@@ -4,13 +4,13 @@ import { TodoItem } from "./TodoItem";
  * Just a list.
  */
 export class TodoList {
-    /** @private */
+    /** @ignore @private */
     private _items: TodoItem[];
 
     /**
      * Adds a To-do item into the list
      * 
-     * @param item: [[`TodoItem`]]
+     * @param item: TodoItem
      */
     add(item: TodoItem) {
         this._items.push(item);
@@ -33,9 +33,9 @@ export class TodoList {
     }
 
     /**
-     * @returns `[[TodoItem]][]`
+     * @returns TodoItem[]
      */
-    get items() {
+    get items(): TodoItem[] {
         return this._items;
     }
 }
