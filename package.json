@@ -4,7 +4,8 @@
   "description": "A todo framework",
   "main": "lib/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "doc": "typedoc src"
   },
   "repository": {
     "type": "git",
