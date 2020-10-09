@@ -4,8 +4,12 @@ import { TodoItem } from "./TodoItem";
  * Just a list.
  */
 export class TodoList {
-    /** @ignore @private */
-    private _items: TodoItem[];
+    /** @ignore */
+    items: TodoItem[];
+
+    constructor() {
+        this.items = [];
+    }
 
     /**
      * Adds a To-do item into the list
@@ -13,7 +17,7 @@ export class TodoList {
      * @param item: TodoItem
      */
     add(item: TodoItem) {
-        this._items.push(item);
+        this.items.push(item);
     }
 
     /**
@@ -22,20 +26,13 @@ export class TodoList {
      * @param index: number
      */
     remove(index: number) {
-        delete this._items[index];
+        this.items[index] = undefined;
     }
 
     /**
      * Clears the list
      */
     clear() {
-        this._items = [];
-    }
-
-    /**
-     * @returns TodoItem[]
-     */
-    get items(): TodoItem[] {
-        return this._items;
+        this.items = [];
     }
 }
