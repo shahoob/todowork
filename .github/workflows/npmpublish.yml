@@ -1,0 +1,55 @@
+name: Publish Node.js Package
+
+on: [release]
+
+jobs:
+  npm_publish:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+
+        - name: Setup Node.js v12
+          uses: actions/setup-node@v1
+          with:
+            node-version: 12
+        
+        - name: Install everything
+          run: npm ci
+
+        - name: Run tests
+          run: npm run test
+        
+        - name: Compile
+          run: npm run build
+
+        - name: Publish (npm)
+          run: npm publish
+          env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          
+  github-packages_publish:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+
+        - name: Setup Node.js v12
+          uses: actions/setup-node@v1
+          with:
+            node-version: 12
+            registry-url: 'https://npm.pkg.github.com'
+        
+        - name: Install everything
+          run: npm ci
+
+        - name: Run tests
+          run: npm run test
+        
+        - name: Compile
+          run: npm run build
+
+        - name: Publish (GitHub Packages)
+          run: npm publish
+          env:
+            NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
