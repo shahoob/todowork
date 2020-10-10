@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
       inputs:
           coverageUpload:
-            description: 'Upload to Code Climate?'
+            description: 'Upload to Code Climate and Codecov?'
             required: false
             default: 'no'
   pull_request:
@@ -37,7 +37,7 @@ jobs:
       - name: Upload the report
         uses: actions/upload-artifact@v2
         with:
-          name: coverage
+          name: coverage.zip
           path: coverage.zip
   coverage-codeclimate:
     runs-on: ubuntu-latest
@@ -60,3 +60,22 @@ jobs:
             CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_ID }}
           with:
             coverageCommand: npm run test
+
+  coverage-codecov:
+    needs: test
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.inputs.coverageUpload == 'yes'}}
+    steps:
+        - name: Download coverage report
+          uses: actions/download-artifact@v2
+          with:
+            name: coverage.zip
+        - name: Extract coverage report
+          uses: montudor/action-zip@v0.1.0
+          with:
+            args: unzip -qq -r coverage.zip coverage
+        
+        - name: Upload to codecov
+          uses: codecov/codecov-action@v1
+          with:
+            token: ${{ secrets.CODECOV_TOKEN }}
