@@ -1,0 +1,59 @@
+name: Test Node.js Package
+
+on:
+  workflow_dispatch:
+      inputs:
+          coverageUpload:
+            description: 'Upload to Code Climate?'
+            required: false
+            default: 'no'
+  pull_request:
+      types: [opened, edited, reopened]
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js v12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      
+      - name: Install everything
+        run: npm ci
+      
+      - name: Run tests
+        run: npm run test
+      
+      - name: Compress the coverage report
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -qq -r coverage.zip coverage
+      
+      - name: Upload the report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage.zip
+  coverage:
+    needs: [test]
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'pull_request' || github.event.inputs.coverageUpload == 'yes'}}
+    steps:
+        - name: Download coverage
+          uses: actions/download-artifact@v2
+          with:
+            name: coverage
+        - name: Extract coverage
+          uses: montudor/action-zip@v0.1.0
+          with:
+            args: unzip -qq coverage.zip -d coverage
+        
+        - name: Upload to Code Climate
+          uses: paambaati/codeclimate-action@v2.2.4
+          env:
+            CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_ID }}
