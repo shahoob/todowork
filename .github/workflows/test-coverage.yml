@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
       inputs:
           coverageUpload:
-            description: 'Upload to Code Climate and Codecov?'
+            description: 'Upload coverage to Code Climate and Codecov?'
             required: false
             default: 'no'
   pull_request:
@@ -79,3 +79,6 @@ jobs:
           uses: codecov/codecov-action@v1
           with:
             token: ${{ secrets.CODECOV_TOKEN }}
+  
+  
+          
