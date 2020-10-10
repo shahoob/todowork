@@ -54,6 +54,6 @@ jobs:
             args: unzip -qq coverage.zip -d coverage
         
         - name: Upload to Code Climate
-          uses: paambaati/codeclimate-action@v2.2.4
+          uses: paambaati/codeclimate-action@v2.7.4
           env:
             CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_ID }}
