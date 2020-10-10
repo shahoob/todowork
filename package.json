@@ -4,7 +4,7 @@
   "description": "A todo framework",
   "main": "lib/app.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage=true",
     "doc": "typedoc"
   },
   "repository": {
