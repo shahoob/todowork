@@ -1,0 +1,7 @@
+src
+.github
+tsconfig.json
+typedoc.json
+tests
+testSamples
+jest.config.js
