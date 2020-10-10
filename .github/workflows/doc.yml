@@ -1,0 +1,40 @@
+name: Documentation
+
+on:
+  workflow_dispatch:
+      
+  release:
+    types:
+        - created
+  pull_request:
+      types: [opened, edited]
+
+jobs:
+  doc:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        
+        - name: Setup Node.js v12
+          uses: actions/setup-node@v1
+          with:
+            node-version: 12
+        
+        - name: Install everything
+          run: npm ci
+        
+        - name: Document the code (typedoc)
+          run: npm run doc
+        
+        - name: Compress the Documentation (for upload)
+          uses: montudor/action-zip@v0.1.0
+          with:
+            args: zip -qq -r docs.zip docs
+      
+        - name: Upload the Documentation
+          uses: actions/upload-artifact@v2
+          with:
+            name: docs
+            path: docs.zip
+  
