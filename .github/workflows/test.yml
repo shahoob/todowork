@@ -73,7 +73,7 @@ jobs:
         - name: Extract coverage report
           uses: montudor/action-zip@v0.1.0
           with:
-            args: unzip -qq -r coverage.zip coverage
+            args: unzip -qq coverage.zip -d coverage
         
         - name: Upload to codecov
           uses: codecov/codecov-action@v1
