@@ -39,21 +39,24 @@ jobs:
         with:
           name: coverage
           path: coverage.zip
-  coverage:
-    needs: [test]
+  coverage-codeclimate:
     runs-on: ubuntu-latest
     if: ${{ github.event_name != 'pull_request' || github.event.inputs.coverageUpload == 'yes'}}
     steps:
-        - name: Download coverage
-          uses: actions/download-artifact@v2
+        - name: Checkout
+          uses: actions/checkout@v2
+
+        - name: Setup Node.js v12
+          uses: actions/setup-node@v1
           with:
-            name: coverage
-        - name: Extract coverage
-          uses: montudor/action-zip@v0.1.0
-          with:
-            args: unzip -qq coverage.zip -d coverage
+            node-version: 12
+
+        - name: Install everything
+          run: npm ci
         
-        - name: Upload to Code Climate
+        - name: Generate coverage and upload to Code Climate
           uses: paambaati/codeclimate-action@v2.7.4
           env:
             CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_ID }}
+          with:
+            coverageCommand: npm run test
