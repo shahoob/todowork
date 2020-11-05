@@ -7,9 +7,10 @@ on:
             description: 'Upload coverage to Code Climate and Codecov?'
             required: false
             default: 'no'
-  pull_request:
-      types: [opened, edited, reopened]
   push:
+    branches:
+      - 'master'
+  release:
 
 jobs:
   test:
