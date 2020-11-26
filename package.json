@@ -1,6 +1,6 @@
 {
   "name": "todowork",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A todo framework",
   "main": "lib/app.js",
   "scripts": {
