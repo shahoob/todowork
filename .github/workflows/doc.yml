@@ -21,11 +21,14 @@ jobs:
           with:
             node-version: 12
         
+        - name: Install yarn
+          run: npm i -g yarn
+
         - name: Install everything
-          run: npm ci
+          run: yarn
         
         - name: Document the code (typedoc)
-          run: npm run doc
+          run: yarn run doc
         
         - name: Compress the Documentation (for upload)
           uses: montudor/action-zip@v0.1.0
