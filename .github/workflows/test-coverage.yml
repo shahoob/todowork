@@ -23,12 +23,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
+
+      - name: Install yarn
+        run: npm i -g yarn
       
       - name: Install everything
-        run: npm ci
+        run: yarn
       
       - name: Run tests
-        run: npm run test
+        run: yarn run test
       
       - name: Compress the coverage report
         uses: montudor/action-zip@v0.1.0
@@ -52,15 +55,18 @@ jobs:
           with:
             node-version: 12
 
+        - name: Install yarn
+          run: npm i -g yarn
+
         - name: Install everything
-          run: npm ci
+          run: yarn
         
         - name: Generate coverage and upload to Code Climate
           uses: paambaati/codeclimate-action@v2.7.4
           env:
             CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_ID }}
           with:
-            coverageCommand: npm run test
+            coverageCommand: yarn run test
 
   coverage-codecov:
     needs: test
