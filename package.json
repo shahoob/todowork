@@ -1,12 +1,13 @@
 {
   "name": "todowork",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A todo framework",
   "main": "lib/app.js",
   "scripts": {
     "test": "jest --coverage=true",
     "doc": "typedoc",
-    "build": "tsc"
+    "build": "tsc",
+    "prepack": "yarn run build"
   },
   "repository": {
     "type": "git",

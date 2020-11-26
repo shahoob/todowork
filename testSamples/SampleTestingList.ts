@@ -44,6 +44,6 @@ export const sampleArrayList: TodoItem[] = [
 export default class SampleTestingList extends TodoList {
     constructor() {
         super();
-        this.items = sampleArrayList;
+        this.items = [...sampleArrayList];
     }
 }

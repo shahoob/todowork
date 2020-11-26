@@ -1,4 +1,3 @@
-import { TodoList } from "./TodoList";
 export interface TodoItem {
     /** The name of the todo item */
     name: string;
@@ -8,4 +7,8 @@ export interface TodoItem {
     due?: Date;
     /** The subitems that is nested under the item */
     subitems?: TodoItem[];
+    /** Anything you want in there ;) */
+    extra?: {
+        [type in string|number]: any
+    }
 }

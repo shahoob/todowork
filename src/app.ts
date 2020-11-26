@@ -15,9 +15,7 @@ export namespace From {
      */
     export function array(items: TodoItem[]) {
         const list = new TodoList();
-        items.forEach(item => {
-            list.add(item);
-        });
+        items.forEach(item => list.items.push(item));
 
         return list;
     }
