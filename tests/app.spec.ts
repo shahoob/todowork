@@ -1,18 +1,6 @@
 import { From } from '../src/app';
-import { TodoItem } from '../src/TodoItem';
 
-const sampleTodos: TodoItem[] = [
-    {
-        name: 'hello',
-        completed: true,
-        subitems: [
-            {
-                name: 'world',
-                completed: false
-            }
-        ]
-    }
-];
+import { sampleArrayList as sampleTodos } from '../testSamples/SampleTestingList'
 
 describe('From', () => {
     describe('#array()', () => {

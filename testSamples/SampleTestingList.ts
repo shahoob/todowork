@@ -1,6 +1,7 @@
 import { TodoList } from "../src/app";
 import { TodoItem } from "../src/TodoItem";
 /** @ignore */
+/* istanbul ignore file */
 export const sampleArrayList: TodoItem[] = [
     {
         name: 'Make some code',
